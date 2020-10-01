@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.reda.monitor.task.mapper.aaa">
+
+    <insert id="insert">
+        insert into REALTIME_PRODUCE_INFORMATION
+    (   LOG_TYPE,
+        MONITOR_NAME,
+        TOTAL_MEMORY,
+        IP,
+        PROCESS_PORT,
+        EXCEPTION_PORT,
+        MEMORY_USED,
+        MEMORY_FREE,
+        BUFF_CACHE,
+        DISK,
+        DISK_USED,
+        TOTAL_OPENFILES_NUM,
+        OPENFILES_NUM,
+        CPU_USED,
+        UPDATE_TIME)
+        <foreach collection="list" item="item" separator="union all" >
+            select
+            #{item.logType,jdbcType=VARCHAR},
+            #{item.name,jdbcType=VARCHAR},
+            #{item.totalMemory,jdbcType=VARCHAR},
+            #{item.ip,jdbcType=VARCHAR},
+            #{item.processPort,jdbcType=VARCHAR},
+            #{item.exceptionPort,jdbcType=VARCHAR},
+            #{item.memoryUsed,jdbcType=VARCHAR},
+            #{item.memoryFree,jdbcType=VARCHAR},
+            #{item.buffCache,jdbcType=VARCHAR},
+            #{item.disk,jdbcType=VARCHAR},
+            #{item.diskUsed,jdbcType=VARCHAR},
+            #{item.totalOpenfilesNum,jdbcType=VARCHAR},
+            #{item.openfilesNum,jdbcType=VARCHAR},
+            #{item.cpuUsed,jdbcType=VARCHAR},
+            #{item.updateTime,jdbcType=TIMESTAMP}
+            from dual
+        </foreach>
+    </insert>
+</mapper>
